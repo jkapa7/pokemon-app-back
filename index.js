@@ -9,6 +9,6 @@ const port = process.env.PORT || 3001;
 //EN EL MANEJADOR LEVANTO MI SERVIDOR
 conn.sync({ force: true }).then(() => {
   server.listen(port, () => {
-    console.log("Listening at 3001"); // eslint-disable-line no-console
+    console.log("Listening at" + port); // eslint-disable-line no-console
   });
 });
