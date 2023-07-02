@@ -7,7 +7,7 @@ module.exports = (sequelize) => {
     "type",
     {
       id: {
-        type: DataTypes.UUID, //Usamos UUID para que no se pise con el id de la api.
+        type: DataTypes.UUID,
         allowNull: false,
         primaryKey: true,
         defaultValue: DataTypes.UUIDV4,
