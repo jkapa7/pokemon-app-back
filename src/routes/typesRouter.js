@@ -6,3 +6,4 @@ const typesRouter = Router();
 // typesRouter.get("/", typesHandler);
 
 module.exports = typesRouter;
+//
