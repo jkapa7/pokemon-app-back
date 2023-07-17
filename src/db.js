@@ -20,6 +20,15 @@ const sequelize = new Sequelize(
   }
 );
 
+const connectDb = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("Connected to database");
+  } catch (error) {
+    process.exit(1);
+  }
+};
+
 const basename = path.basename(__filename);
 
 const modelDefiners = [];
@@ -49,4 +58,5 @@ Type.belongsToMany(Pokemon, { through: "pokemon_type" });
 module.exports = {
   ...sequelize.models, // para poder importar los modelos así: const { Product, User } = require('./db.js');
   conn: sequelize, // para importart la conexión { conn } = require('./db.js');
+  connectDb,
 };

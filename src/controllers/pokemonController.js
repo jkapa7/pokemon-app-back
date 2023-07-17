@@ -50,7 +50,8 @@ const getPokemonByName = async (name) => {
   const pokemonByName = allPokemons.filter(
     (pokemon) => pokemon.name.toLowerCase() === name.toLowerCase()
   );
-  if (pokemonByName.length === 0) throw new Error(`Pokemon ${name} not found`);
+  if (pokemonByName.length === 0)
+    throw new ClientError(`Pokemon ${name} not found`);
   return pokemonByName;
 };
 
@@ -59,7 +60,7 @@ const getPokemonById = async (id) => {
   const pokemonById = allPokemons.find(
     (pokemon) => pokemon.id === id || pokemon.id === Number(id)
   );
-  if (!pokemonById) throw new Error(`Pokemon with id: ${id} not found`);
+  if (!pokemonById) throw new ClientError(`Pokemon with id: ${id} not found`);
   return pokemonById;
 };
 
@@ -75,7 +76,7 @@ const createPokemon = async (
   types
 ) => {
   if (!name || !life || !attack || !defense || !types) {
-    throw new Error("Please complete the required information.");
+    throw new ClientError("Please complete the required information.");
   }
   let newPokemon = await Pokemon.create({
     name,
@@ -90,6 +91,9 @@ const createPokemon = async (
 
   types.forEach(async (tp) => {
     let pokemonType = await Type.findOne({ where: { name: tp } });
+    if (!pokemonType) {
+      throw new ClientError("Type not found");
+    }
     await newPokemon.addType(pokemonType);
   });
 
