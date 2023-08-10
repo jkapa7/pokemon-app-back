@@ -6,7 +6,9 @@ const getAllTypes = async () => {
   const types = await typesApi.data;
 
   for (type of types.results) {
-    const find = await Type.findOne({ where: { name: type.name } });
+    const find = await Type.findOne({
+      where: { name: type.name },
+    });
     if (!find) {
       await Type.create({ name: type.name });
     }
